@@ -3,15 +3,27 @@
 import { AuthSocialButton } from "./AuthSocialButton";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/inputs/Input";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
+    const session = useSession();
+    const router = useRouter();
     const [variant, setVariant] = useState<Variant>("LOGIN");
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (session?.status === "authenticated") {
+            router.push("/users");
+        }
+    }, [session?.status]);
 
     const toggleVariant = useCallback(() => {
         if (variant === "LOGIN") {
@@ -37,17 +49,50 @@ const AuthForm = () => {
         setIsLoading(true);
 
         if (variant === "REGISTER") {
-            // Axios Register
+            axios
+                .post("/api/register", data)
+                .then(() => signIn("credentials", data))
+                .catch(() => toast.error("Something went wrong!"))
+                .finally(() => setIsLoading(false));
         }
 
         if (variant === "LOGIN") {
-            // nextAuth SingIn
+            signIn("credentials", {
+                ...data,
+                redirect: false,
+            })
+                .then((callback) => {
+                    if (callback?.error) {
+                        toast.error("ivalid credentials");
+                    }
+                    if (callback?.ok && !callback.error) {
+                        toast.success("Logged in");
+                        router.push("/users");
+                    }
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
         }
     };
 
     const socialAction = (action: string) => {
         setIsLoading(true);
-        //NextAuth social sign
+
+        signIn(action, {
+            redirect: false,
+        })
+            .then((callback) => {
+                if (callback?.error) {
+                    toast.error("ivalid credentials");
+                }
+                if (callback?.ok && !callback.error) {
+                    toast.success("Logged in");
+                }
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     };
 
     return (
@@ -56,11 +101,12 @@ const AuthForm = () => {
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                     {variant === "REGISTER" && (
                         <Input
-                            id="Name"
+                            id="name"
                             label="Name"
                             register={register}
                             errors={errors}
                             disabled={isLoading}
+                            required
                         />
                     )}
                     <Input
@@ -74,6 +120,7 @@ const AuthForm = () => {
                     <Input
                         id="password"
                         label="Password"
+                        type="password"
                         register={register}
                         errors={errors}
                         disabled={isLoading}
@@ -119,7 +166,7 @@ const AuthForm = () => {
                 <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
                     <div>
                         {variant === "LOGIN"
-                            ? "New to Libertas?"
+                            ? "Don't have an account?"
                             : "Already have an account?"}
                     </div>
                     |

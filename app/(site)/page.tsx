@@ -18,10 +18,10 @@ export default function Home() {
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <Image
                     alt="Logo"
-                    height="48"
-                    width="48"
+                    height="150"
+                    width="150"
                     className="mx-auto w-auto"
-                    src="/images/logo.png"
+                    src="/images/ExtendLogo.png"
                 />
                 <h2
                     className="
@@ -33,7 +33,7 @@ export default function Home() {
                     text-neutral-200
                 "
                 >
-                    Sign in to your account
+                    Enter the free world
                 </h2>
             </div>
             <AuthForm />

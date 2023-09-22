@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 interface InputProps {
     label: string;
@@ -36,7 +37,14 @@ const Input: React.FC<InputProps> = ({
                     type={type}
                     autoComplete={id}
                     disabled={disabled}
-                    {...register(id, { required })}
+                    {...register(id, {
+                        required: required,
+                        minLength: id === "password" ? 6 : 2,
+                        pattern:
+                            id === "email"
+                                ? /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+                                : /./,
+                    })}
                     className={clsx(
                         `
                             form-input
@@ -57,7 +65,8 @@ const Input: React.FC<InputProps> = ({
                             sm:text-sm
                             sm:leading-6
                         `,
-                        errors[id] && "focus:ring-rose-500",
+                        errors[id] && "ring-rose-500", // Додати червоний обведений контур
+                        // errors[id] && "bg-rose-500", // Додати червоний фон для невалідних полів
                         disabled && "opacity-50 cursor-default"
                     )}
                 />
