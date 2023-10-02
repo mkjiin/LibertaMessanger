@@ -39,14 +39,14 @@ const DekstopItem: React.FC<DekstopItemProps> = ({
                 leading-6
                 font-semibold
                 text-white
-                hover:text-neural-700
-
-                hover:bg-neutral-700
+                hover:bg-yellow-500
+                hover:bg-opacity-75
+                transition
             `,
-                    active && "bg-neutral-700 text-white"
+                    active && "bg-yellow-500 text-white"
                 )}
             >
-                <Icon classname="h-6 w-6 shrink-0" />
+                <Icon className="h-6 w-6 shrink-0" />
                 <span className="sr-only">{label}</span>
             </Link>
         </li>

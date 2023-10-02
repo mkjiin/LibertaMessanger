@@ -2,11 +2,20 @@
 
 import useRoutes from "@/app/hooks/useRoutes";
 import { useState } from "react";
-import DekstopItem from "./DekstopItem";
 
-const DekstopSidebar = () => {
+import DekstopItem from "./DekstopItem";
+import { User } from "@prisma/client";
+import Avatar from "../Avatar";
+
+interface DekstopSidebarProps {
+    currentUser: User;
+}
+
+const DekstopSidebar: React.FC<DekstopSidebarProps> = ({ currentUser }) => {
     const routes = useRoutes();
     const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    console.log({ currentUser });
 
     return (
         <div
@@ -24,7 +33,7 @@ const DekstopSidebar = () => {
             lg:pb-4
             lg:flex
             lg:flex-col
-            justife-between
+            justify-between
         "
         >
             <nav
@@ -51,6 +60,27 @@ const DekstopSidebar = () => {
                         />
                     ))}
                 </ul>
+            </nav>
+            <nav
+                className="
+                mt-4
+                flex
+                flex-col
+                justify-between
+                items-center
+
+            "
+            >
+                <div
+                    onClick={() => setIsOpen(true)}
+                    className="
+                        cursor-pointer
+                        hover:opacity-75
+                        transition
+                    "
+                >
+                    <Avatar user={currentUser} />
+                </div>
             </nav>
         </div>
     );
