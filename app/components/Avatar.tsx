@@ -15,11 +15,11 @@ const Avatar: React.FC<AvatarProps> = ({ user }) => {
                 relative 
                 inline-block 
                 rounded-full 
-                overflow-hidden 
-                h-8 
-                w-8 
-                md:h-9 
-                md:w-9"
+                overflow-hidden
+                h-9 
+                w-9 
+                md:h-11 
+                md:w-11"
             >
                 <Image
                     alt="Avatar"
@@ -29,18 +29,18 @@ const Avatar: React.FC<AvatarProps> = ({ user }) => {
             </div>
             <span
                 className="
-                absolute
-                block
-                rounded-full
-                bg-yellow-500
-                ring-2
-                ring-white
-                top-0
-                right-0
-                h-1
-                w-1
-                md:h-2
-                md:w-2
+                absolute 
+            block 
+            rounded-full 
+            bg-yellow-500 
+            ring-2 
+            ring-white 
+            top-0 
+            right-0
+            h-2 
+            w-2 
+            md:h-3 
+            md:w-3
             "
             />
         </div>
