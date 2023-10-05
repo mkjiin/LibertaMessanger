@@ -32,11 +32,11 @@ const Header: React.FC<Props> = ({ conversation }) => {
         flex
         border-l-[1px]
         border-neutral-800
-        rounded-b-lg
         sm:px-4
-        py-3
-        px-3
-        lg:px-
+        py-1.5
+        px-1.5
+        rounded-b-lg
+        lg:px-4
         justify-between
         items-center
         shadow:sm

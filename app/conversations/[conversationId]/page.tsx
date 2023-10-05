@@ -2,6 +2,8 @@ import getConversationById from "@/app/actions/getConversationById";
 import getMessages from "@/app/actions/getMessages";
 import EmptyState from "@/app/components/EmptyState";
 import { Header } from "./components/Header";
+import { Body } from "./components/Body";
+import { MessageForm } from "./components/MessageForm";
 
 type Props = {
     params: {
@@ -27,6 +29,8 @@ const ConversationId = async ({ params: { conversationId } }: Props) => {
         <div className="lg:pl-80 h-full">
             <div className="h-full flex flex-col bg-neutral-800">
                 <Header conversation={conversation} />
+                <Body initialMessages={messages} />
+                <MessageForm />
             </div>
         </div>
     );

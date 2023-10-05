@@ -76,12 +76,12 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
                 items-center
                 space-x-3
                 p-3
-                bg-neutral-700
-                hover:bg-neutral-800
+                bg-neutral-600
+                hover:bg-neutral-700
                 transition
                 cursor-pointer
                 `,
-                selected ? "bg-neutral-100" : "bg-neutral-700"
+                selected ? "bg-neutral-700" : "bg-neutral-600"
             )}
             onClick={handleClick}
         >
@@ -105,7 +105,9 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
                         text-sm
 
                     `,
-                            hasSeen ? "text-gray-500" : "text-white font-medium"
+                            hasSeen
+                                ? "text-yellow-500 font-extralight"
+                                : "text-yellow-500 font-normal"
                         )}
                     >
                         {lastMessageText}
