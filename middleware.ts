@@ -7,5 +7,5 @@ export default withAuth({
 });
 
 export const confing = {
-    matcher: ["/users/:path*"],
+    matcher: ["/users/:path*", "/conversations/:path*"],
 };
