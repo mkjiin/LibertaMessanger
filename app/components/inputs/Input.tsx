@@ -12,6 +12,7 @@ interface InputProps {
     register: UseFormRegister<FieldValues>;
     errors: FieldErrors;
     disabled?: boolean;
+    whiteLabel?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -22,11 +23,15 @@ const Input: React.FC<InputProps> = ({
     required,
     errors,
     disabled,
+    whiteLabel,
 }) => {
     return (
         <div>
             <label
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className={clsx(
+                    "block text-sm font-medium leading-6 text-gray-900",
+                    whiteLabel && "text-white"
+                )}
                 htmlFor={id}
             >
                 {label}

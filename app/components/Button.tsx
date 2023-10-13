@@ -10,6 +10,7 @@ interface ButtonProps {
     secondary?: boolean;
     danger?: boolean;
     disabled?: boolean;
+    marginRight?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
     secondary,
     danger,
     disabled,
+    marginRight,
 }) => {
     return (
         <button
@@ -38,6 +40,7 @@ const Button: React.FC<ButtonProps> = ({
                 focus-visible:outline
                 focus-visible:outline-2
                 focus-visible:outline-offset-2
+                
             `,
                 disabled && "opacity-50 cursor-default",
                 fullWidth && "w-full",
@@ -46,7 +49,8 @@ const Button: React.FC<ButtonProps> = ({
                     "bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600",
                 !secondary &&
                     !danger &&
-                    "bg-yellow-400 hover:bg-yellow-500 focus-visible:outline-yellow-500"
+                    "bg-yellow-400 hover:bg-yellow-500 focus-visible:outline-yellow-500",
+                marginRight && "mr-2"
             )}
         >
             {children}
