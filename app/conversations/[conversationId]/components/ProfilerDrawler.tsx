@@ -9,6 +9,8 @@ import { format } from "date-fns";
 import { Fragment, useMemo, useState } from "react";
 import { IoClose, IoTrash } from "react-icons/io5";
 import { ConfirmModal } from "./ConfirmModal";
+import { AvatarGroup } from "@/app/components/AvatarGroup";
+import { useActiveList } from "@/app/hooks/useActiveList";
 
 interface ProfilerDrawlerProps {
     data: Conversation & {
@@ -26,6 +28,9 @@ const ProfilerDrawler: React.FC<ProfilerDrawlerProps> = ({
     const otherUser = useOtherUser(data);
     const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
 
+    const { members } = useActiveList();
+    const isActive = members.indexOf(otherUser?.email!) !== -1;
+
     const joinedDate = useMemo(() => {
         return format(new Date(otherUser.createdAt), "PP");
     }, [otherUser]);
@@ -39,8 +44,8 @@ const ProfilerDrawler: React.FC<ProfilerDrawlerProps> = ({
             return `${data.users.length} members`;
         }
 
-        return "Active";
-    }, [data]);
+        return isActive ? "Online" : "Offline";
+    }, [data, isActive]);
 
     return (
         <>
@@ -100,9 +105,17 @@ const ProfilerDrawler: React.FC<ProfilerDrawlerProps> = ({
                                             <div className="relative mt-6 flex-1 px-4 sm:px-6">
                                                 <div className="flex flex-col items-center">
                                                     <div className="mb-2">
-                                                        <Avatar
-                                                            user={otherUser}
-                                                        />
+                                                        {data.isGroup ? (
+                                                            <AvatarGroup
+                                                                users={
+                                                                    data.users
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <Avatar
+                                                                user={otherUser}
+                                                            />
+                                                        )}
                                                     </div>
                                                     <div className="text-white">
                                                         {title}
@@ -132,6 +145,25 @@ const ProfilerDrawler: React.FC<ProfilerDrawlerProps> = ({
                                                     </div>
                                                     <div className="w-full pb-5 pt-5 sm:px-0 sm:pt-0">
                                                         <dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
+                                                            {data.isGroup && (
+                                                                <div>
+                                                                    <dt className="text-sm font-medium text-white sm:w-40 sm:flex-shrink">
+                                                                        Members
+                                                                    </dt>
+                                                                    <dd className="mt-1 text-sm text-yellow-500 sm:col-span-2 ">
+                                                                        {data.users
+                                                                            .map(
+                                                                                (
+                                                                                    user
+                                                                                ) =>
+                                                                                    user.name
+                                                                            )
+                                                                            .join(
+                                                                                " | "
+                                                                            )}
+                                                                    </dd>
+                                                                </div>
+                                                            )}
                                                             {!data.isGroup && (
                                                                 <div>
                                                                     <dt className="text-sm font-medium text-white sm:w-40 sm:flex-shrink-0">

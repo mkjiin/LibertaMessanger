@@ -4,6 +4,7 @@ import EmptyState from "@/app/components/EmptyState";
 import { Header } from "./components/Header";
 import { Body } from "./components/Body";
 import { MessageForm } from "./components/MessageForm";
+import { FullMessageType } from "@/app/types";
 
 type Props = {
     params: {
@@ -13,7 +14,7 @@ type Props = {
 
 const ConversationId = async ({ params: { conversationId } }: Props) => {
     const conversation = await getConversationById(conversationId);
-    const messages = await getMessages(conversationId);
+    const messages = (await getMessages(conversationId)) as FullMessageType[];
 
     if (!conversation) {
         return (

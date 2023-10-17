@@ -69,7 +69,7 @@ const SettingModal: React.FC<SettingModalProps> = ({
                         <p className="mt-1 text-sm leading-6 text-yellow-500">
                             Edit your info
                         </p>
-                        <div className="mt-10 flex flex-col gap-y-8">
+                        <div className="mt-6 flex flex-col gap-y-4">
                             <Input
                                 disabled={isLoading}
                                 label="Name"
@@ -112,7 +112,7 @@ const SettingModal: React.FC<SettingModalProps> = ({
                             </div>
                         </div>
                     </div>
-                    <div className="mt-12 flex items-center justify-end gap-x-3">
+                    <div className="mt-4 flex items-center justify-end gap-x-2">
                         <Button disabled={isLoading} onClick={onClose}>
                             {" "}
                             Cancel
