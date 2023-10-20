@@ -21,7 +21,7 @@ export default function Home() {
                     height="150"
                     width="150"
                     className="mx-auto w-auto"
-                    src="/ExtendLogo.png"
+                    src="/images/ExtendLogo.png"
                 />
                 <h2
                     className="
