@@ -21,8 +21,7 @@ export default function Home() {
                     height="150"
                     width="150"
                     className="mx-auto w-auto"
-                    src="/images/ExtendLogo.png"
-                    unoptimized={process.env.ENVIRONMENT !== "PRODUCTION"}
+                    src="/ExtendLogo.png"
                 />
                 <h2
                     className="
