@@ -16,12 +16,13 @@ export default function Home() {
             to-neutral-700"
         >
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <img
+                <Image
                     alt="Logo"
                     height="150"
                     width="150"
                     className="mx-auto w-auto"
                     src="/images/ExtendLogo.png"
+                    unoptimized={process.env.ENVIRONMENT !== "PRODUCTION"}
                 />
                 <h2
                     className="
