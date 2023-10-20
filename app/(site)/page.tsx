@@ -16,7 +16,7 @@ export default function Home() {
             to-neutral-700"
         >
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <Image
+                <img
                     alt="Logo"
                     height="150"
                     width="150"
